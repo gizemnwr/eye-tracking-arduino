@@ -1,79 +1,103 @@
-# 👁️ Eye Tracking Communication System with Arduino Integration
+# 👁️ Göz Takibi ile İletişim Sistemi (Arduino Entegrasyonlu)
 
-This is a simple and powerful **eye-tracking-based communication system** designed to help individuals with limited mobility or speech capabilities. By tracking eye gaze directions, it triggers predefined messages and sends commands to an Arduino to potentially control external devices.
-
----
-
-## 🚀 Features
-
-- 🔍 Real-time eye gaze detection using OpenCV and Dlib
-- 💬 Sends visual messages via GUI (Tkinter)
-- 🧠 Recognizes 3 directions: **Left**, **Center**, and **Right**
-- 📟 Sends corresponding signals to Arduino for further action (e.g., LEDs, buzzers, etc.)
+Bu proje, fiziksel hareket kabiliyeti kısıtlı veya konuşma engeli olan bireylerin iletişim kurabilmesini kolaylaştırmak amacıyla geliştirilen bir **göz takibi tabanlı iletişim sistemidir**.  
+Göz yönü algılanarak önceden tanımlanmış mesajlar görüntülenir ve Arduino’ya komut gönderilerek harici cihazlar kontrol edilebilir.
 
 ---
 
-## 🎯 Use Case
+## 🚀 Özellikler
 
-This system is particularly designed for:
-- Individuals with ALS, paralysis, or speech impairments
-- Communication in emergency or care environments
-
----
-
-## 🧰 Technologies Used
-
-- Python 3
-- OpenCV
-- Dlib (68 face landmarks)
-- Tkinter (GUI)
-- Arduino (Serial communication via pySerial)
+- 🔍 Gerçek zamanlı göz yönü tespiti (OpenCV & Dlib kullanılarak)
+- 💬 Tkinter ile görsel kullanıcı arayüzü
+- 🧠 3 yön algılama: Sol, Orta ve Sağ
+- 📟 Arduino'ya seri bağlantı üzerinden sinyal gönderimi
 
 ---
 
-## 🔧 Setup & Installation
+## 🎯 Hedef Kullanıcılar
 
-### 1. Clone the Repository
+Bu sistem özellikle aşağıdaki durumlar için tasarlanmıştır:
+
+- ALS hastaları, felç geçirmiş bireyler veya konuşma engeli bulunan kişiler  
+- Hastane, bakım evi gibi acil müdahale gerektiren ortamlarda iletişim kolaylaştırma
+
+---
+
+## 🧰 Kullanılan Teknolojiler
+
+- Python 3  
+- OpenCV  
+- Dlib (68 yüz işaret noktası modeli)  
+- Tkinter (grafik arayüz için)  
+- Arduino (pySerial ile bağlantı sağlanır)
+
+---
+
+## 🔧 Kurulum ve Çalıştırma
+
+### 1. Depoyu Bilgisayarına Klonla
 
 ```bash
 git clone https://github.com/gizemnwr/eye-tracking-arduino.git
 cd eye-tracking-arduino
+```
 
-2. Install Dependencies
+### 2. Gerekli Kütüphaneleri Yükle
+
+```bash
 pip install opencv-python dlib numpy pyserial
-💡 You also need to download the file shape_predictor_68_face_landmarks.dat
-Download link (official):
-Unzip and place it on your Desktop.
+```
 
-🖥️ Running the Program
-Simply run the Python file:
+> 💡 Ek olarak `shape_predictor_68_face_landmarks.dat` adlı yüz model dosyasını indirmen gerekiyor.  
+İndirme bağlantısı (resmi): [http://dlib.net/files/shape_predictor_68_face_landmarks.dat.bz2](http://dlib.net/files/shape_predictor_68_face_landmarks.dat.bz2)  
+Dosyayı masaüstüne çıkarıp kodda belirtilen yere yerleştirmeyi unutma.
+
+---
+
+## 🖥️ Programı Başlat
+
+Aşağıdaki komutu kullanarak programı çalıştırabilirsin:
+
+```bash
 python goz_takip.py
+```
 
-Make sure your Arduino is connected via USB, and the correct COM port is defined in the code.
+> 📌 Arduino’nun USB ile bağlı olduğundan ve kod içinde doğru COM portunun ayarlandığından emin ol.
 
-📡 Arduino Connection
-Left eye gaze ➡️ sends 'L' → "I need water"
+---
 
-Right eye gaze ➡️ sends 'R' → "I'm hungry"
+## 📡 Arduino Bağlantısı
 
-Center ➡️ sends 'C' → "I need help"
+| Göz Yönü   | Gönderilen Mesaj     | Arduino’ya Gönderilen Karakter |
+|------------|-----------------------|-------------------------------|
+| Sol        | I need water (Su istiyorum) | `L`                         |
+| Sağ        | I'm hungry (Açım)         | `R`                         |
+| Orta       | I need help (Yardıma ihtiyacım var) | `C`               |
 
-Use this data on Arduino to control devices accordingly.
+> Arduino tarafında bu karakterleri alıp, LED, buzzer veya farklı çıkış birimleriyle cevap verebilirsin.
 
-🧠 How It Works
-Face is detected using Dlib's 68-landmark model.
+---
 
-Left eye region is isolated.
+## 🧠 Sistem Nasıl Çalışır?
 
-The white area of the eye is processed to determine the pupil’s position.
+1. Dlib ile yüz algılama yapılır (68 nokta).
+2. Sol göz bölgesi tespit edilerek izole edilir.
+3. Göz bebeğinin beyaz alandaki konumu analiz edilir.
+4. Yön bilgisi çıkarılır → GUI’ye mesaj gönderilir → Arduino’ya karakter gönderilir.
 
-Direction is mapped to a message and sent via serial port.
+---
 
+## 👩‍💻 Geliştirici
 
-👩‍💻 Author
-gizemnwr
+**[@gizemnwr](https://github.com/gizemnwr)**
 
+Bu proje, bireysel olarak tarafımdan geliştirilmiştir. ✨
 
-📜 License
-This project is licensed under the MIT License.
-Feel free to use, modify, and share! 🚀
+---
+
+## 📜 Lisans
+
+Bu proje [MIT Lisansı](https://opensource.org/licenses/MIT) ile lisanslanmıştır.  
+Dilediğiniz gibi kullanabilir, geliştirebilir ve paylaşabilirsiniz. 🎉
+
+---
